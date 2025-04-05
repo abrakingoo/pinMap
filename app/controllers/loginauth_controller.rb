@@ -7,6 +7,9 @@ class LoginauthController < ApplicationController
 
     if user && user.authenticate(user_params[:password])
       # Successful login
+      session[:user]= user
+      session[:user_id] = user.id
+      session[:email] = user.email 
       redirect_to root_path, notice: 'Login successful'
     else
       # Invalid credentials

@@ -8,12 +8,9 @@ const pages = import.meta.glob('../Pages/**/*.jsx', { eager: true });
 createInertiaApp({
   resolve: name => pages[`../Pages/${name}.jsx`],
   setup({ el, App, props }) {
-
-    const auth = window.authData;
-
     createRoot(el).render(
       <div>
-        <Header auth={auth} />
+        <Header />
         <App {...props} />
       </div>
     );

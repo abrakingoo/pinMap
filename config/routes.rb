@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   post '/login_auth', to: 'loginauth#login'
   post "/register", to: "users#register"
   post '/logout', to: 'sessions#destroy'
+  post '/pin_location', to: 'pin_location#create'
+  get 'pins', to: 'pins#index'
+
 
 
   # get "home/index"

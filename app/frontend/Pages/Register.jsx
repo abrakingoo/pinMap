@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Inertia } from '@inertiajs/inertia'
 
 export default function Register({ auth }) {
+  const [username, setUsername] = useState('')  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
@@ -14,7 +15,7 @@ export default function Register({ auth }) {
       return;
     }
   
-    Inertia.post('/register', { user: { email, password, password_confirmation: password } }, {
+    Inertia.post('/register', { user: {username, email, password, password_confirmation: password } }, {
         onSuccess: () => {
             console.log("Registration Success! Login to Continue")
         },
@@ -32,6 +33,18 @@ export default function Register({ auth }) {
         <h2 style={styles.heading}>Create an Account</h2>
         {error && <div style={styles.error}>{error}</div>}
         <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.inputGroup}>
+            <label htmlFor="username">Name</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              style={styles.input}
+              placeholder='John Doe'
+            />
+          </div>
           <div style={styles.inputGroup}>
             <label htmlFor="email">Email</label>
             <input
@@ -41,6 +54,7 @@ export default function Register({ auth }) {
               onChange={(e) => setEmail(e.target.value)}
               required
               style={styles.input}
+              placeholder='example@email.com'
             />
           </div>
           <div style={styles.inputGroup}>

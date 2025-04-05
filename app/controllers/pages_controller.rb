@@ -1,14 +1,19 @@
 class PagesController < ApplicationController
   def landing
-    pins = Pin.includes(:user).select(:id, :latitude, :longitude, :user_id)
-    @user = current_user
-    render inertia: "Landing", props: {
-      pins: pins.as_json(include: { user: { only: :email } }),
-      auth: {
-        user: current_user&.as_json(only: [:id, :email])
-      }
+    @pins = Pin.includes(:user).select(:id, :latitude, :longitude, :user_id)
+    render inertia: 'Landing', props: {
+      pins: @pins.map do |pin|
+        {
+          id: pin.id,
+          latitude: pin.latitude,
+          longitude: pin.longitude,
+          user_id: pin.user_id,
+          username: pin.user.username
+        }
+      end
     }
   end
+
   def login
     render inertia: "Login", props: { auth: { user: current_user&.as_json(only: [:id, :email]) } }
   end
@@ -17,4 +22,3 @@ class PagesController < ApplicationController
     render inertia: "Register", props: { auth: { user: current_user&.as_json(only: [:id, :email]) } }
   end
 end
-

@@ -1,0 +1,2 @@
+module PinLocationHelper
+end

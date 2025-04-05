@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       if user.save
         # If successful, render the Dashboard with the created user
         session[:user_id] = user.id
-        redirect_to root_path
+        render inertia: 'Login'
       else
         # If user validation fails, return errors in the response
         # You can pass the errors to the frontend to display them
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   def user_params
     # Permit email, password, and password_confirmation parameters from the form
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 end
 

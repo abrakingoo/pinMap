@@ -3,9 +3,12 @@ class CreatePins < ActiveRecord::Migration[8.0]
     create_table :pins do |t|
       t.float :latitude
       t.float :longitude
-      t.references :user, null: false, foreign_key: true
+      t.bigint :user_id
+      t.string :username
 
       t.timestamps
     end
+
+    add_index :pins, :user_id
   end
 end
