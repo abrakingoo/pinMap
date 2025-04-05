@@ -3,8 +3,17 @@ import { Inertia } from '@inertiajs/inertia' // For handling the logout action
 import { InertiaLink } from '@inertiajs/inertia-react' // Import InertiaLink for navigation
 
 export default function Header({ auth }) {
-  const handleLogout = () => Inertia.post('/logout')
-
+    const handleLogout = () => {
+        Inertia.post('/logout', {}, {
+            onSuccess: () => {
+                localStorage.clear();
+                alert("You’ve been logged out.");
+                window.location.href = '/';
+              }
+        });
+      }
+      
+  const data = JSON.parse(localStorage.getItem("user"))
   return (
     <header style={{ padding: '1rem', background: '#f5f5f5' }}>
       {/* Wrap PinMap text in InertiaLink to navigate to home page */}
@@ -13,15 +22,15 @@ export default function Header({ auth }) {
       </InertiaLink>
       
       <div style={{ float: 'right' }}>
-        {auth?.user ? (
+        {data && data.email ?  (
           <>
-            <span>Welcome, {auth.user.email}</span>
+            <span>Welcome, {data.email}</span>
             <button onClick={handleLogout}>Logout</button>
           </>
         ) : (
           <>
-            <InertiaLink href="/users/sign_in">Login</InertiaLink> | 
-            <InertiaLink href="/users/sign_up">Register</InertiaLink>
+            <InertiaLink href="/login">Login</InertiaLink> | 
+            <InertiaLink href="/signup">Register</InertiaLink>
           </>
         )}
       </div>

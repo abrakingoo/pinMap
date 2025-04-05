@@ -7,19 +7,24 @@ export default function Register({ auth }) {
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const [error, setError] = useState(null)
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (password !== passwordConfirmation) {
-      setError('Passwords do not match')
-      return
+      setError('Passwords do not match');
+      return;
     }
-    console.log("PASSWORD: ", password)
-    Inertia.post('/register',{user: { email, password, password_confirmation: password }})
-    .catch((err) => {
-      console.error("Registration error:", err); // Log the error details
-      setError('Registration failed');
-    });
+  
+    Inertia.post('/register', { user: { email, password, password_confirmation: password } }, {
+        onSuccess: () => {
+            console.log("Registration Success! Login to Continue")
+        },
+        onError : (errors) => {
+            console.error("Registration error:", errors);
+            setError('Registration failed: ' + (errors.message || 'Unknown error'));
+        }
+    })
   }
+  
 
   return (
     <div style={styles.container}>
@@ -63,7 +68,7 @@ export default function Register({ auth }) {
           <button type="submit" style={styles.button}>Register</button>
         </form>
         <p style={styles.footerText}>
-          Already have an account? <a href="/users/sign_in">Login here</a>
+          Already have an account? <a href="/login">Login here</a>
         </p>
       </div>
     </div>

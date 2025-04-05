@@ -1,6 +1,11 @@
 class SessionsController < ApplicationController
   def destroy
     reset_session
-    Inertia.redirect('/users/sign_in')  # Redirect to the login page after logging out
+
+    # Option 1: Redirect to login or home using Inertia
+    # redirect_to inertia_path('/') # or login_path, etc.
+
+    # Option 2 (if you want to show a page with props immediately):
+    render inertia: 'Login', props: { notice: 'Logged out successfully' }
   end
 end

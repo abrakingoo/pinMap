@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   root "pages#landing"
 
-  get "/users/sign_in", to: "pages#login"
-  get "/users/sign_up", to: "pages#register"
+  get "/login", to: "pages#login"
+  get "/signup", to: "pages#register"
+  post '/login_auth', to: 'loginauth#login'
   post "/register", to: "users#register"
   post '/logout', to: 'sessions#destroy'
 

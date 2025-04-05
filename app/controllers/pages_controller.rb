@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   def landing
     pins = Pin.includes(:user).select(:id, :latitude, :longitude, :user_id)
-
+    @user = current_user
     render inertia: "Landing", props: {
       pins: pins.as_json(include: { user: { only: :email } }),
       auth: {

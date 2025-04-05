@@ -8,9 +8,17 @@ export default function Login({ auth }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    Inertia.post('/login', { email, password })
-      .catch((err) => setError('Invalid login credentials'))
-  }
+    Inertia.post('/login_auth', { loginauth: { email, password }},{
+        onSuccess: () => {
+            console.log('Logged in successfully!');
+            localStorage.setItem("user", JSON.stringify({email}))
+            window.location.href = '/';
+          },
+          onError: (errors) => {
+            console.log('Invalid login credentials', errors);
+          },
+        }
+    )}
 
   return (
     <div style={styles.container}>
@@ -43,7 +51,7 @@ export default function Login({ auth }) {
           <button type="submit" style={styles.button}>Login</button>
         </form>
         <p style={styles.footerText}>
-          Don't have an account? <a href="/users/sign_up">Register here</a>
+          Don't have an account? <a href="/signup">Register here</a>
         </p>
       </div>
     </div>

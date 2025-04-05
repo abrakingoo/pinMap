@@ -1,32 +1,33 @@
-# app/controllers/users_controller.rb
 class UsersController < ApplicationController
-  # UsersController
-  def register
+ def register
+    
+    # Rails.logger.info "ERORR DETAILS:"
     # Check if the user already exists
-    Rails.logger.info "USER DETAILS: #{user_params}"
     if User.exists?(email: params[:user][:email])
       # Render the Register page with an error message if the email already exists
-      return render inertia: 'Register', props: { error: 'Email is already taken' }
+      render inertia: 'Register', props: { error: 'Email is already taken' }, status: :unprocessable_entity
     else
+      # Create a new user instance with the submitted parameters
       user = User.new(user_params)
       
+      # Attempt to save the user
       if user.save
-        # User created successfully, return the success response
-        Rails.logger.info "User created successfully: #{user.inspect}" # Log the user object
-        return render inertia: 'Dashboard', props: { user: user }
+        # If successful, render the Dashboard with the created user
+        session[:user_id] = user.id
+        redirect_to root_path
       else
-        # Validation failed, return the errors
-        Rails.logger.info "User failed to save: #{user.errors.full_messages}" # Log the errors
-        return render inertia: 'Register', props: { errors: user.errors.full_messages }
+        # If user validation fails, return errors in the response
+        # You can pass the errors to the frontend to display them
+        render inertia: 'Register', props: { error: user.errors.full_messages }
       end
     end
   end
   
   private
-  
+
   def user_params
+    # Permit email, password, and password_confirmation parameters from the form
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
-  
-  
 end
+
