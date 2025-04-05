@@ -13,8 +13,12 @@ export default function Register({ auth }) {
       setError('Passwords do not match')
       return
     }
-    Inertia.post('/register', { email, password })
-      .catch((err) => setError('Registration failed'))
+    console.log("PASSWORD: ", password)
+    Inertia.post('/register',{user: { email, password, password_confirmation: password }})
+    .catch((err) => {
+      console.error("Registration error:", err); // Log the error details
+      setError('Registration failed');
+    });
   }
 
   return (
