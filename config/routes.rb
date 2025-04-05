@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
+  # devise_for :users
   root "pages#landing"
+
+    # Inertia-based routes
+    get "/users/sign_in", to: "pages#login"
+    get "/users/sign_up", to: "pages#register"
+
   # get "home/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -9,5 +9,12 @@ class PagesController < ApplicationController
       }
     }
   end
+  def login
+    render inertia: "Login", props: { auth: { user: current_user&.as_json(only: [:id, :email]) } }
+  end
+
+  def register
+    render inertia: "Register", props: { auth: { user: current_user&.as_json(only: [:id, :email]) } }
+  end
 end
 
