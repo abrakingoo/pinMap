@@ -56,13 +56,18 @@ export default function AdminDashboard({ users, flash_user }) {
                 </td>
                 <td style={{ padding: '8px 16px', borderBottom: '1px solid #e5e7eb' }}>
                   <button
-                    onClick={() => handleDelete(user.id)}
+                    onClick={(e) =>{
+                      if (user.admin) return;
+                      handleDelete(user.id)
+                    } }
+                    diasbled={user.admin}
                     style={{
                       color: '#e11d48',
                       fontWeight: '600',
-                      cursor: 'pointer',
+                      cursor: user.admin ? 'not-allowed' : 'pointer',
                       background: 'transparent',
                       border: 'none',
+                      opacity: user.admin ? 0.2 : 1,
                     }}
                   >
                     Delete

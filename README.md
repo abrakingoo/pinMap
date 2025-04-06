@@ -2,155 +2,149 @@
 
 PinMap is a location-based application where users can pin their locations on a map. The application allows users to view and share locations with others, along with their usernames. The application uses the Rails framework for the backend, Inertia.js for seamless page navigation, and React for the frontend with Leaflet.js for the map display.
 
+---
+
 ## Features
-    User Authentication: Users can register, log in, and log out. The pins are associated with the logged-in user.
 
-    Map Integration: Display pins on a map, with each pin showing the user's username or "Anonymous" if not logged in.
+- **User Authentication**: Custom registration and login system (Devise not used). Users can register, log in, and log out. Pins are associated with the currently logged-in user.
+- **Admin Panel**: Admin users can access a protected dashboard, view all registered users, and delete them if necessary.
+- **Map Integration**: Display all user pins on an interactive Leaflet.js map. Each pin shows the user's username.
+- **Location Pins**: Users can add their latitude and longitude through a geolocation-enabled interface.
+- **Anonymous Usage**: Even without logging in, users can still view the map and pins (without interaction).
+- **Role-based Redirection**: After login, admins are redirected to `/admin` and regular users to `/`.
+- **Session Handling & Flash Messages**: Flash messages are sent with login/logout, error, or success status using Inertia.
+- **Route Protection**: Admin routes are protected server-side, redirecting unauthorized or non-logged-in users.
+- **Custom 404 Page**: Unrecognized routes are redirected to a friendly 404 error page.
 
-    Location Pins: Users can add their locations with latitude and longitude.
-
-    Anonymous Usage: Even without logging in, users can view.
+---
 
 ## Technologies Used
-    Ruby on Rails: The backend is built using Ruby on Rails, providing a RESTful API and handling user authentication and data persistence.
 
-    Inertia.js: Inertia.js is used for creating a seamless, single-page application (SPA) experience while still using server-side routing.
+- **Ruby on Rails**: Backend framework handling routing, sessions, user management, and database interaction.
+- **Inertia.js**: Provides a smooth SPA-like experience while keeping server-side rendering.
+- **React.js**: Used for dynamic components and frontend logic.
+- **Leaflet.js**: Interactive map rendering.
+- **PostgreSQL**: Primary database for users and pins.
 
-    React.js: The frontend is powered by React, which dynamically renders the map and pins.
-
-    Leaflet.js: Leaflet is used for rendering interactive maps on the frontend.
-
-    PostgreSQL: Database used for storing user and pin data.
+---
 
 ## Requirements
-    Ruby version: 3.2.2
 
-    Rails version: 7.x.x
+- **Ruby version**: 3.2.2
+- **Rails version**: 7.x.x
+- **Node.js**: 16.x or higher
+- **Yarn**: For managing frontend dependencies
+- **PostgreSQL**: Database server
 
-    Node.js: 16.x or higher (for managing JavaScript dependencies)
-
-    Yarn: For managing frontend dependencies
-
-    PostgreSQL: Database server
+---
 
 ## Setup and Installation
-    To run the project locally:
 
-1. #### Clone the repository:
+To run the project locally:
 
-    ```bash
-    git clone https://github.com/abrakingoo/pinMap.git
-    ```
+### 1. Clone the repository:
+```bash
+git clone https://github.com/abrakingoo/pinMap.git
+```
 
-2. #### Navigate into the project directory:
+### 2. Navigate into the project directory:
+```bash
+cd pinMap
+```
 
-    ```bash
-    cd pinMap
-    ```
-3. #### Install Ruby dependencies:
+### 3. Install Ruby dependencies:
+```bash
+bundle install
+```
 
-    ```bash
-    bundle install
-    ```
-4. #### Install Node.js dependencies:
+### 4. Install Node.js dependencies:
+```bash
+yarn install
+```
 
-    ```bash
-    yarn install
-    ```
-5. #### Set up the database:
+### 5. Set up the database:
+```bash
+bin/rails db:create
+bin/rails db:migrate
+bin/rails db:seed # optional
+```
 
-    - Create the database:
+### 6. Start the Rails server:
+```bash
+bin/rails server
+```
 
-        ```bash
-        bin/rails db:create
-        ```
-    - Run database migrations:
-            
-        ```bash
-            bin/rails db:migrate
-         ```
-    - Optionally, seed the database with default data:
+### 7. Visit the app:
+Open your browser and go to http://localhost:3000
 
-        ```bash
-            bin/rails db:seed
-        ```
-
-6. #### Start the Rails server:
-
-    ```bash
-    bin/rails server
-    ```
-
-7. #### Visit the app:
-
-    Open your browser and go to http://localhost:3000.
-
+---
 
 ## Database Configuration
-The project uses PostgreSQL as the database. Make sure you have PostgreSQL installed and running locally, or configure it to use a different database if necessary.
 
-- Database creation: The command bin/rails db:create creates the required database.
+- **Database creation**: `bin/rails db:create`
+- **Migrations**: `bin/rails db:migrate`
+- **Seeding**: `bin/rails db:seed` (optional)
 
-- Database initialization: After creating the database, run bin/rails db:migrate to apply all migrations and set up the schema.
+Make sure PostgreSQL is running locally or properly configured.
+
+---
 
 ## Running the Test Suite
-To run the test suite:
 
-1. Ensure you have the necessary test dependencies:
+1. Install necessary dependencies:
+```bash
+bundle install --without production
+```
 
-    ```bash
-    bundle install --without production
-    ```
-2. Run the tests:
+2. Run all tests:
+```bash
+bin/rails test
+```
 
-    ```bash
-    bin/rails test
-    ```
-    You can also run specific tests, such as:
+3. Run specific tests:
+```bash
+bin/rails test test/models/pin_test.rb
+```
 
-    ```bash
-    bin/rails test test/models/pin_test.rb
-    ````
+---
+
 ## Services
-This application does not require additional services like job queues, cache servers, or search engines at this point. However, if you plan to scale or add features that require background jobs or search functionality, you might need to integrate services like:
 
-- Sidekiq (for background jobs)
+Currently, no external services are required. If scaling:
 
-- Redis (for caching)
+- **Sidekiq**: Background job processing
+- **Redis**: Caching
+- **Elasticsearch**: Full-text search
 
-- Elasticsearch (for search capabilities)
+---
 
 ## Deployment Instructions
-To deploy this application to a production environment, follow these steps:
 
-1. #### Set up the server: You'll need a server running a production environment, like Heroku, AWS, or DigitalOcean.
+1. Set up your production server (e.g., Heroku, AWS, Render, DigitalOcean).
+2. Configure environment variables (e.g., `SECRET_KEY_BASE`).
+3. Push to production branch:
+```bash
+git push heroku main
+```
+4. Run database migrations:
+```bash
+heroku run bin/rails db:migrate
+```
+5. Visit the live app via your hosting provider URL.
 
-2. #### Set environment variables: Ensure all sensitive credentials and keys are set in environment variables, such as SECRET_KEY_BASE for Rails.
-
-3. #### Push to the repository:
-
-    ```bash
-    git push heroku master
-    ```
-4. #### Run database migrations:
-
-    ```bash
-    heroku run bin/rails db:migrate
-    ```
-5. #### Access the application:
-
-    Once deployed, you can access your app through the provided URL (e.g., https://your-app.herokuapp.com).
+---
 
 ## Contributing
+
 1. Fork the repository
+2. Create your feature branch: `git checkout -b feature-name`
+3. Commit your changes: `git commit -am 'Add new feature'`
+4. Push the branch: `git push origin feature-name`
+5. Open a Pull Request
 
-2. Create your feature branch (git checkout -b feature-name)
-
-3. Commit your changes (git commit -am 'Add new feature')
-
-4. Push to the branch (git push origin feature-name)
-
-5. Create a new Pull Request
+---
 
 ## License
-This project is open-source and available under the MIT License.
+
+This project is open-source and available under the [MIT License](LICENSE).
+

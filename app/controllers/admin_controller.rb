@@ -4,7 +4,7 @@ class AdminController < ApplicationController
   def dashboard
     user_data = session.delete(:current_user)  # clear after reading
     users = User.joins(:pins)
-    .select('users.id, users.email, users.username, users.created_at, pins.latitude, pins.longitude')
+    .select('users.id, users.email, users.username, users.created_at, users.admin, pins.latitude, pins.longitude')
     render inertia: 'Admin', props: { users: users, flash_user: user_data }
   end
 

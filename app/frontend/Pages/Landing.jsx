@@ -23,7 +23,7 @@ export default function Landing({ pins, flash_user }) {
   return (
     <div>
       <div style={{ height: '80vh' }}>
-        <MapContainer center={[38.7223, -9.1393]} zoom={1.5} style={{ height: '100%', width: '100%' }}>
+        <MapContainer center={[10.7223, 20.1393]} zoom={1.5} style={{ height: '100%', width: '100%' }}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
