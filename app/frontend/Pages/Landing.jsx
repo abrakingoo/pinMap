@@ -24,7 +24,13 @@ export default function Landing({ pins }) {
           />
           {pins.map((pin, index) => (
             <Marker key={index} position={[pin.latitude, pin.longitude]} icon={defaultIcon}>
-              <Popup>{pin.username ? pin.username : 'Anonymous'}</Popup>
+            <Popup>
+                <div style={{ textAlign: 'center', fontSize: '14px', lineHeight: '1.4' }}>
+                    <strong>{pin.username || 'Anonymous'}</strong>
+                    <br />
+                    <span>{pin.latitude}, {pin.longitude}</span>
+                </div>
+            </Popup>
             </Marker>
           ))}
         </MapContainer>

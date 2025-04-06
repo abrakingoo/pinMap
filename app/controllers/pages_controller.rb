@@ -8,7 +8,7 @@ class PagesController < ApplicationController
           latitude: pin.latitude,
           longitude: pin.longitude,
           user_id: pin.user_id,
-          username: pin.user.username
+          username: pin.user ? pin.user.username : 'Unknown' 
         }
       end
     }

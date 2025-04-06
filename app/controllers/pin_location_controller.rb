@@ -5,6 +5,7 @@ class PinLocationController < ApplicationController
 
     # If the user is logged in, associate the pin with the current user, otherwise, use a default user or nil
     if current_user
+      Rails.logger.info "CURRENT USER FROM PIN LOCATION: #{current_user.username}"
       user_id = current_user.id
       username = current_user.username
     else

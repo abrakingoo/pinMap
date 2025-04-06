@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   post '/logout', to: 'sessions#destroy'
   post '/pin_location', to: 'pin_location#create'
   get 'pins', to: 'pins#index'
+  get '/admin', to: 'admin#dashboard'
+  delete '/admin/users/:id', to: 'admin#destroy_user'
+
 
 
 

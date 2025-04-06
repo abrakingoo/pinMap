@@ -7,11 +7,10 @@ class PinsController < ApplicationController
         latitude: pin.latitude,
         longitude: pin.longitude,
         user_id: pin.user_id,
-        username: pin.user.username
+        username: pin.user ? pin.user.username : 'Unknown' 
       }
     end
-
-    render inertia: 'Landing', props: { pins: pins_data }
+    render inertia: 'Landing', props: { pins: @pins_data }
   end
 end
 

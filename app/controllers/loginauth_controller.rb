@@ -7,10 +7,12 @@ class LoginauthController < ApplicationController
 
     if user && user.authenticate(user_params[:password])
       # Successful login
-      session[:user]= user
       session[:user_id] = user.id
-      session[:email] = user.email 
-      redirect_to root_path, notice: 'Login successful'
+      if user.admin
+        redirect_to admin_path, notice: 'Login successful'
+      else
+        redirect_to root_path, notice: 'Login successful'
+      end
     else
       # Invalid credentials
       render json: { error: 'Invalid email or password' }, status: :unauthorized
