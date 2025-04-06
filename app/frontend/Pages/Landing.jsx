@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Inertia } from '@inertiajs/inertia'
 import 'leaflet/dist/leaflet.css';
@@ -13,7 +13,13 @@ const defaultIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
-export default function Landing({ pins }) {
+export default function Landing({ pins, flash_user }) {
+      useEffect(() => {
+        if (flash_user) {
+          localStorage.setItem("flash_user", JSON.stringify(flash_user));
+        }
+      }, [flash_user]);
+    //    console.log('Logged in user:', localStorage.getItem("flash_user"));
   return (
     <div>
       <div style={{ height: '85vh' }}>

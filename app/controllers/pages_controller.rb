@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def landing
+    user_data = session.delete(:current_user)  # clear after reading
     @pins = Pin.includes(:user).select(:id, :latitude, :longitude, :user_id)
     render inertia: 'Landing', props: {
       pins: @pins.map do |pin|
@@ -10,7 +11,8 @@ class PagesController < ApplicationController
           user_id: pin.user_id,
           username: pin.user ? pin.user.username : 'Unknown' 
         }
-      end
+      end,
+      flash_user: user_data 
     }
   end
 

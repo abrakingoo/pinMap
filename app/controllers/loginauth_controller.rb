@@ -8,6 +8,13 @@ class LoginauthController < ApplicationController
     if user && user.authenticate(user_params[:password])
       # Successful login
       session[:user_id] = user.id
+
+      session[:current_user] = {
+        email: user.email,
+        username: user.username,
+        admin: user.admin
+      }
+
       if user.admin
         redirect_to admin_path, notice: 'Login successful'
       else

@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react'
 import { Inertia } from '@inertiajs/inertia';
 
-export default function AdminDashboard({ users }) {
+export default function AdminDashboard({ users, flash_user }) {
+  useEffect(() => {
+    if (flash_user) {
+      localStorage.setItem("flash_user", JSON.stringify(flash_user));
+    }
+  }, [flash_user]);
+  
+  // console.log('Logged in user:', localStorage.getItem("flash_user"));
   const handleDelete = (id) => {
     if (confirm('Are you sure you want to delete this user?')) {
       Inertia.delete(`/admin/users/${id}`, {

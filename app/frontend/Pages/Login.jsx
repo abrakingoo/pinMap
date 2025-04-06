@@ -9,8 +9,9 @@ export default function Login({ auth }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     Inertia.post('/login_auth', { loginauth: { email, password } }, {
-      onSuccess: () => {
-        // console.log('Logged in successfully!')
+      onSuccess: ({}) => {
+        const flash = window.flash;
+        console.log('Logged in successfully!', flash);
         localStorage.setItem("user", JSON.stringify({ email }))
         window.location.reload();
       },

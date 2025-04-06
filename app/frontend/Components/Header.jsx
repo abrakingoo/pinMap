@@ -13,7 +13,7 @@ export default function Header() {
         });
       }
       
-  const data = JSON.parse(localStorage.getItem("user"))
+  const data = JSON.parse(localStorage.getItem("flash_user"))
   return (
     <header style={{ padding: '1rem 2rem', background: '#f5f5f5', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
   <InertiaLink href="/" style={{ width: '100%', fontSize: '1.5rem', fontWeight: 'bold', textDecoration: 'none', color: '#333' }}>
@@ -24,7 +24,7 @@ export default function Header() {
     {data && data.email ? (
       <>
         <div style={{width: '100%', display: 'flex', flexWrap:'wrap', alignItems: 'center', gap: '2rem'}}>
-          <div style={{fontWeight: 'bold', marginBottom: '0.5rem', marginLeft: 'auto' }}>Welcome, {data.email}</div>
+          <div style={{fontWeight: 'bold', marginBottom: '0.5rem', marginLeft: 'auto' }}>Welcome, {data.username}</div>
 
           <form
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}

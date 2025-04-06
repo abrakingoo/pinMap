@@ -2,8 +2,9 @@ class AdminController < ApplicationController
   before_action :require_admin
 
   def dashboard
+    user_data = session.delete(:current_user)  # clear after reading
     users = User.all.select(:id, :email, :username, :created_at)
-    render inertia: 'Admin', props: { users: users }
+    render inertia: 'Admin', props: { users: users, flash_user: user_data }
   end
 
   def destroy_user
