@@ -24,7 +24,7 @@ export default function Login({ auth }) {
   return (
     <div style={styles.container}>
       <div style={styles.formContainer}>
-        <h2 style={styles.heading}>Login to PinMap</h2>
+        <h2 style={styles.heading}>Welcome to PinMap</h2>
         {error && <div style={styles.error}>{error}</div>}
         <form onSubmit={handleSubmit} style={styles.form}>
           <div style={styles.inputGroup}>
@@ -64,7 +64,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '100vh',
+    minHeight: '80vh',
     backgroundColor: '#f4f4f9',
   },
   formContainer: {
