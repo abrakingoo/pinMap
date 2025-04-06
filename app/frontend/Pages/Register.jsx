@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Inertia } from '@inertiajs/inertia'
 
-export default function Register({ auth }) {
+export default function Register({ auth, error}) {
   const [username, setUsername] = useState('')  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
-  const [error, setError] = useState(null)
+  let [err, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +32,7 @@ export default function Register({ auth }) {
       <div style={styles.formContainer}>
         <h2 style={styles.heading}>Create an Account</h2>
         {error && <div style={styles.error}>{error}</div>}
+        {err && <div style={styles.error}>{err}</div>}
         <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.inputGroup}>
             <label htmlFor="username">Name</label>

@@ -22,8 +22,8 @@ export default function Landing({ pins, flash_user }) {
     //    console.log('Logged in user:', localStorage.getItem("flash_user"));
   return (
     <div>
-      <div style={{ height: '85vh' }}>
-        <MapContainer center={[38.7223, -9.1393]} zoom={2} style={{ height: '100%', width: '100%' }}>
+      <div style={{ height: '80vh' }}>
+        <MapContainer center={[38.7223, -9.1393]} zoom={1.5} style={{ height: '100%', width: '100%' }}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

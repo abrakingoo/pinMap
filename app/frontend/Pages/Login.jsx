@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { Inertia } from '@inertiajs/inertia'
 
-export default function Login({ auth }) {
+export default function Login({ error }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState(null)
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
     Inertia.post('/login_auth', { loginauth: { email, password } }, {
-      onSuccess: ({}) => {
+      onSuccess: () => {
         const flash = window.flash;
         console.log('Logged in successfully!', flash);
         localStorage.setItem("user", JSON.stringify({ email }))
         window.location.reload();
       },
-      onError: (errors) => {
-        console.log('Invalid login credentials', errors)
-        setError('Invalid login credentials') // Set error message if login fails
+      onError: ({props}) => {
+        console.log('Invalid login credentials', props)
+        setError('Invalid login credentials') 
       },
     })
     

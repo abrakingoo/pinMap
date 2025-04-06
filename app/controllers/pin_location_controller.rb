@@ -17,7 +17,7 @@ class PinLocationController < ApplicationController
 
     if pin.save
       # Location successfully saved
-      render json: { message: "Pin saved successfully!" }, status: :ok
+      render json: { message: "Location Pinned Successfully" }, status: :ok
     else
       # If save fails, log the errors
       # Rails.logger.error "Pin save failed: #{pin.errors.full_messages.join(', ')}"

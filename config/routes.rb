@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get '/admin', to: 'admin#dashboard'
   delete '/admin/users/:id', to: 'admin#destroy_user'
 
+   # Catch-all route for unknown paths
+   match '*path', to: 'application#render_404', via: :all
+
 
 
 

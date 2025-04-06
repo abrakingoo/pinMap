@@ -2,7 +2,7 @@ import React from 'react'
 import { Inertia } from '@inertiajs/inertia' // For handling the logout action
 import { InertiaLink } from '@inertiajs/inertia-react' // Import InertiaLink for navigation
 
-export default function Header() {
+export default function Header({props}) {
     const handleLogout = () => {
         Inertia.post('/logout', {}, {
             onSuccess: () => {
@@ -52,7 +52,7 @@ export default function Header() {
 
           <form
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}
-            onSubmit={(e) => {
+            onSubmit={ async (e) => {
                 e.preventDefault();
                 const latitude = e.target.lat.value;
                 const longitude = e.target.lng.value;
@@ -62,15 +62,18 @@ export default function Header() {
                 return;
                 }
 
-                Inertia.post('/pin_location', { latitude, longitude }, {
-                onSuccess: () => {
-                    alert("Location pinned successfully!");
-                    e.target.reset();
-                },
-                onError: () => {
-                    alert("Something went wrong. Try again.");
-                }
-                });
+                const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const res = await fetch('http://localhost:3000/pin_location', {
+                  method: "POST",
+                  headers: {
+                    "Content-Type" : "application/json",
+                    "X-CSRF-Token": token
+                  },
+                  body: JSON.stringify({latitude, longitude})
+                  })
+                 const data = await res.json();
+                 alert(data.message);
+                 e.target.reset();
             }}
             >
             <input

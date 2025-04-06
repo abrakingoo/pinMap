@@ -21,8 +21,7 @@ class LoginauthController < ApplicationController
         redirect_to root_path, notice: 'Login successful'
       end
     else
-      # Invalid credentials
-      render json: { error: 'Invalid email or password' }, status: :unauthorized
+      render inertia: 'Login', props: { error: 'Invalid email or password' }, status: :unauthorized
     end
   end
 
