@@ -16,8 +16,11 @@ class AdminController < ApplicationController
   private
 
   def require_admin
+    unless current_user
+      redirect_to login_path and return
+    end
     unless current_user&.admin?
-      render inertia: 'Login', props: { error: 'Unauthorized' }, status: :unauthorized
+      redirect_to root_path and return
     end
   end
 end
