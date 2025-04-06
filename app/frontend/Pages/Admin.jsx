@@ -39,6 +39,7 @@ export default function AdminDashboard({ users, flash_user }) {
               <th style={{ padding: '8px 16px', borderBottom: '1px solid #e5e7eb' }}>ID</th>
               <th style={{ padding: '8px 16px', borderBottom: '1px solid #e5e7eb' }}>Username</th>
               <th style={{ padding: '8px 16px', borderBottom: '1px solid #e5e7eb' }}>Email</th>
+              <th style={{ padding: '8px 16px', borderBottom: '1px solid #e5e7eb' }}>Location (latitude, longitude)</th>
               <th style={{ padding: '8px 16px', borderBottom: '1px solid #e5e7eb' }}>Created At</th>
               <th style={{ padding: '8px 16px', borderBottom: '1px solid #e5e7eb' }}>Actions</th>
             </tr>
@@ -49,6 +50,7 @@ export default function AdminDashboard({ users, flash_user }) {
                 <td style={{ padding: '8px 16px', borderBottom: '1px solid #e5e7eb' }}>{user.id}</td>
                 <td style={{ padding: '8px 16px', borderBottom: '1px solid #e5e7eb' }}>{user.username}</td>
                 <td style={{ padding: '8px 16px', borderBottom: '1px solid #e5e7eb' }}>{user.email}</td>
+                <td style={{ padding: '8px 16px', borderBottom: '1px solid #e5e7eb' }}>{user.latitude}, {user.longitude}</td>
                 <td style={{ padding: '8px 16px', borderBottom: '1px solid #e5e7eb' }}>
                   {new Date(user.created_at).toLocaleDateString()}
                 </td>
