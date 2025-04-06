@@ -23,7 +23,31 @@ export default function Header() {
   <div style={{ width: '100%', display: 'flex', flexWrap:'wrap', alignItems: 'center', gap: '2rem' }}>
     {data && data.email ? (
       <>
-        <div style={{width: '100%', display: 'flex', flexWrap:'wrap', alignItems: 'center', gap: '2rem'}}>
+        {data.admin ? (
+          <>
+              <button
+                onClick={() => Inertia.visit('/admin')}
+                style={{
+                  padding: '0.5rem 1rem',
+                  backgroundColor: '#6c757d',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  marginLeft: 'auto'
+                  }}
+              >
+                  Dashboard
+              </button>
+                <button
+                  onClick={handleLogout}
+                  style={{padding: '0.5rem 1rem', backgroundColor: '#e74c3c', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+                >
+                  Logout
+                </button>
+            </>
+        ) : (
+          <div style={{width: '100%', display: 'flex', flexWrap:'wrap', alignItems: 'center', gap: '2rem'}}>
           <div style={{fontWeight: 'bold', marginBottom: '0.5rem', marginLeft: 'auto' }}>Welcome, {data.username}</div>
 
           <form
@@ -111,9 +135,8 @@ export default function Header() {
         >
           Logout
         </button>
-
         </div>
-
+        )}     
       </>
     ) : (
       <>
