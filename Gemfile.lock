@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/inertiajs/inertia-rails
-  revision: c8f36c6baa74159415de39459aab1c9fe537d1f6
+  revision: 4ceb8c357f6bfa7acc5b9c9ced7030cfbfde53b3
   specs:
     inertia_rails (3.7.1)
       railties (>= 6)
