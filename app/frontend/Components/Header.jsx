@@ -13,26 +13,19 @@ export default function Header({props}) {
 
     useEffect(() => {
       const data = JSON.parse(localStorage.getItem("flash_user"));
-      console.log('User data from localStorage:', data);
       setUserData(data);
       if (data?.id) {
-        console.log('Calling checkUserPin with id:', data.id);
         checkUserPin(data.id);
-      } else {
-        console.log('No user id found in localStorage');
       }
     }, []);
 
     const checkUserPin = (userId) => {
-      console.log('Checking pin for user:', userId);
       fetch(`/api/user_pin/${userId}`)
         .then(res => {
-          console.log('Response status:', res.status);
           if (!res.ok) throw new Error('Failed to fetch');
           return res.json();
         })
         .then(result => {
-          console.log('Pin check result:', result);
           if (result.has_pin) {
             setHasPinned(true);
             setUserPinId(result.pin_id);
@@ -41,9 +34,7 @@ export default function Header({props}) {
             setUserPinId(null);
           }
         })
-        .catch(err => {
-          console.error('Error checking pin:', err);
-        });
+        .catch(() => {});
     };
 
     const handleLogout = () => {
@@ -59,15 +50,12 @@ export default function Header({props}) {
     const handleUnpin = async () => {
       setShowConfirm(false);
       const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-      console.log('Attempting to delete pin:', userPinId);
       try {
         const res = await fetch(`/pins/${userPinId}`, {
           method: 'DELETE',
           headers: { 'X-CSRF-Token': token }
         });
-        console.log('Delete response status:', res.status);
         const data = await res.json();
-        console.log('Delete response data:', data);
         if (res.ok) {
           setToast({ message: 'Pin removed successfully', type: 'success' });
           setHasPinned(false);
@@ -77,7 +65,6 @@ export default function Header({props}) {
           setToast({ message: data.error || 'Failed to remove pin', type: 'error' });
         }
       } catch (error) {
-        console.error('Delete error:', error);
         setToast({ message: 'Error: ' + error.message, type: 'error' });
       }
     }
