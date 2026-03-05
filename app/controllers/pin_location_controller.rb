@@ -5,7 +5,13 @@ class PinLocationController < ApplicationController
 
     # If the user is logged in, associate the pin with the current user, otherwise, use a default user or nil
     if current_user
-      # Rails.logger.info "CURRENT USER FROM PIN LOCATION: #{current_user.username}"
+      # Check if user already has a pin
+      existing_pin = Pin.find_by(user_id: current_user.id)
+      if existing_pin
+        render json: { error: "You already have a pin. Please unpin first." }, status: :unprocessable_entity
+        return
+      end
+      
       user_id = current_user.id
       username = current_user.username
     else
@@ -17,7 +23,7 @@ class PinLocationController < ApplicationController
 
     if pin.save
       # Location successfully saved
-      render json: { message: "Location Pinned Successfully" }, status: :ok
+      render json: { message: "Location Pinned Successfully", pin_id: pin.id }, status: :ok
     else
       # If save fails, log the errors
       # Rails.logger.error "Pin save failed: #{pin.errors.full_messages.join(', ')}"
