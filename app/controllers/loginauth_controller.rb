@@ -10,6 +10,7 @@ class LoginauthController < ApplicationController
       session[:user_id] = user.id
 
       session[:current_user] = {
+        id: user.id,
         email: user.email,
         username: user.username,
         admin: user.admin
