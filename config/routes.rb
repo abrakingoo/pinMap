@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post "/register", to: "users#register"
   post '/logout', to: 'sessions#destroy'
   post '/pin_location', to: 'pin_location#create'
+  get '/api/user_pin/:user_id', to: 'pins#user_pin'
+  delete '/pins/:id', to: 'pins#destroy'
   get 'pins', to: 'pins#index'
   get '/admin', to: 'admin#dashboard'
   delete '/admin/users/:id', to: 'admin#destroy_user'
