@@ -1,5 +1,10 @@
 # PinMap
 
+
+https://github.com/user-attachments/assets/14a4fa41-de36-4551-bf8c-5f59801e2ebf
+
+
+
 PinMap is a location-based application where users can pin their locations on a map. The application allows users to view and share locations with others, along with their usernames. The application uses the Rails framework for the backend, Inertia.js for seamless page navigation, and React for the frontend with Leaflet.js for the map display.
 
 ---
